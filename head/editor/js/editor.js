@@ -61,6 +61,8 @@ var editor = function(){
         var caller = new api();
         caller.action = 'write';
         caller.parameters.page = dumpElement($('html').get()[0]);
+        caller.parameters.pathComponent = editorLoader.getPathComponent();
+        caller.parameters.pathName = window.location.pathname;
         caller.call();
     }
 

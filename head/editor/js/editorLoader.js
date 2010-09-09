@@ -1,9 +1,13 @@
 
 var editorLoader = function(){
    
-   var path; // Provided by the page to be edited.
-   var pathToEditor; 
+   var pathComponent; // calculated from the relative path to editorLoader.js
+   var urlToEditor; 
    var nextScriptToLoad = 0;  
+   
+   function  getPathComponent(){
+       return '/' + pathComponent;
+   }
    
    var scriptsToLoad =[
        {file:'jquery-1.4.2.min.js',test:'jQuery'},
@@ -12,10 +16,11 @@ var editorLoader = function(){
        {file:'editor.js', test:'editor'}
    ];      
    
-   function setPathToEditorFolder () {
-       var pathComponent = document.getElementById('loaderTag').getAttribute('src',2).replace('editor/js/editorLoader.js','');
-       pathToEditor = 'http://' + window.location.host + '/' + pathComponent + 'editor/' ;
-       console.log('pathToEditor: ', pathToEditor);
+   function setUrlToEditorFolder () {
+       pathComponent = document.getElementById('loaderTag').getAttribute('src',2).replace('editor/js/editorLoader.js',''); // Setting!
+       console.log('pathComponent: ', getPathComponent());
+       urlToEditor = 'http://' + window.location.host + '/editor/' ;
+       console.log('urlToEditor: ', urlToEditor);
    }
    
    var loaded = {};
@@ -24,7 +29,7 @@ var editorLoader = function(){
        var bodyID = document.getElementsByTagName("body")[0];
        var newScript = document.createElement('script');
        newScript.type = 'text/javascript';
-       newScript.src = pathToEditor + 'js/' + file;
+       newScript.src = urlToEditor + 'js/' + file;
        bodyID.appendChild(newScript);
    }
    
@@ -53,7 +58,7 @@ var editorLoader = function(){
        newTag.type = 'text/css';
        newTag.media = 'screen';
        newTag.rel = 'stylesheet';
-       newTag.href = pathToEditor + 'css/' + file;
+       newTag.href = urlToEditor + 'css/' + file;
        bodyID.appendChild(newTag);
    }
    
@@ -68,14 +73,16 @@ var editorLoader = function(){
        } 
    }
    
+   
    return {
         config: function () {
-            setPathToEditorFolder();
+            setUrlToEditorFolder();
             injectCssFiles();
             loadNextScript();
         },
-        getPathToEditor: function(){
-            return pathToEditor;
-        }
+        getUrlToEditor: function(){
+            return urlToEditor;
+        },
+        getPathComponent: getPathComponent
    }; 
 }();

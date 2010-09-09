@@ -12,7 +12,7 @@ var api = function(){
             postData[p] = this.parameters[p]
         }
         console.log('postData', postData);
-        var apiUrl = editorLoader.getPathToEditor() + '/php/editorApi.php';
+        var apiUrl = editorLoader.getUrlToEditor() + 'php/editorApi.php';
         
         
         $.post(apiUrl, postData, function(data, textStatus){
