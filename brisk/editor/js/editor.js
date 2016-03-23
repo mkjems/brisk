@@ -74,12 +74,12 @@ var editor = function(){
             $('*').removeAttr('contenteditable');
             $('*').removeClass('hightlight');
             $('*').blur();
-            alert('Edit mode OFF');
+            //alert('Edit mode OFF');
             callWithApi();
         } else {
             editmode = true;
             startHighlighting();
-            alert('Edit mode ON!');
+            //alert('Edit mode ON!');
 
         }
     }

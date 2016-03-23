@@ -2,7 +2,7 @@
 
     function makeWriteable($f){
         $p = $_SERVER['DOCUMENT_ROOT']."/editor/php/" . $f;
-        chmod($p, 0755);
+        chmod($p, 0777);
     }
 
     function writeArrayOfStringsToFile($arr,$filePath){
