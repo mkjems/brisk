@@ -52,6 +52,12 @@ A script tag must be placed in all the files you want to be editable:
 
 	<script id="loaderTag" type="text/javascript" src="<path to>/editor/js/editorLoader.js" onload="editorLoader.config();"></script>
 
+Make sure the files you want to edit are writable by the server:
+
+	cd brisk/brisk
+	chmod 777 index.html pageTwo/index.html
+
+This is not a good idea for public facing websites.
 
 ## 5. How does it work.
 
@@ -60,5 +66,4 @@ Now the javascript editor is fully loaded in the browser and waiting for a ctrl-
 When ctrl-e is pressed the highlighting is activated. And if you click the element it becomes editable using the `contentEditable` attribute.
 
 Pressing ctrl-e again exits edit mode and collects the entire page as a string, making sure to exclude the brisk editing code. The string is posted to the server where it is saved to disk replacing the previous version.
-
 
