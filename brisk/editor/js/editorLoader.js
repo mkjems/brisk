@@ -9,11 +9,23 @@ var editorLoader = function(){
        return '/' + pathComponent;
    }
    
-   var scriptsToLoad =[
-       {file:'jquery-1.4.2.min.js',test:'jQuery'},
-       {file:'shortcut.js',test:'shortcut'},
-       {file:'api.js', test:'api'},
-       {file:'editor.js', test:'editor'}
+   var scriptsToLoad =[{
+            file:'jquery-1.4.2.min.js',
+            test:'jQuery',
+            id:'brisk-jquery'
+        },{
+            file:'shortcut.js',
+            test:'shortcut',
+            id:'brisk-shortcut'
+        },{
+            file:'api.js',
+            test:'api',
+            id:'brisk-api'
+        },{
+            file:'editor.js',
+            test:'editor',
+            id:'brisk-editor'
+        }
    ];      
    
    function setUrlToEditorFolder () {
@@ -25,9 +37,10 @@ var editorLoader = function(){
    
    var loaded = {};
 
-   function writeScriptTag (file){
+   function writeScriptTag (file, id){
        var bodyID = document.getElementsByTagName("body")[0];
        var newScript = document.createElement('script');
+       newScript.id = id;
        newScript.type = 'text/javascript';
        newScript.src = urlToEditor + 'js/' + file;
        bodyID.appendChild(newScript);
@@ -46,7 +59,7 @@ var editorLoader = function(){
   
    function loadNextScript(){
        if(scriptsToLoad[nextScriptToLoad]){
-           writeScriptTag(scriptsToLoad[nextScriptToLoad].file);
+           writeScriptTag(scriptsToLoad[nextScriptToLoad].file, scriptsToLoad[nextScriptToLoad].id);
            waitFor(scriptsToLoad[nextScriptToLoad].test);
            nextScriptToLoad++;
        }
@@ -65,7 +78,7 @@ var editorLoader = function(){
    
    function injectCssFiles(){
        var cssFiles = [
-           'editor.css'
+           'brisk-editor.css'
        ];
        var i;
        for(i=0;i<cssFiles.length;i++){
